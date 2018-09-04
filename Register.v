@@ -1,36 +1,46 @@
  /******************************************************************* 
 * Name:
-*	ClkReg.v
+*	Register.v
 * Description:
-* 	This module is Registers for the Alu with a Clock signal.
+* 	This module is a register with parameter.
 * Inputs:
-*	clock:
-*  In_Data: Input data
+*	clk: Clock signal 
+*  reset: reset signal
+*	Data_Input: Data to lache data 
 * Outputs:
-* 	Out_Data: Output data
-* Versi√≥n:  
+* 	Mux_Output: Data to provide lached data
+* VersiÛn:  
 *	1.0
 * Author: 
-*	Iv√°n Mart√≠nez Flores
+*	JosÈ Luis Pizano Escalante
 * Fecha: 
-*	01/09/2018 
+*	07/02/2013 
 *********************************************************************/
-module alu	
+
+ module Register
 #(
 	parameter WORD_LENGTH = 8
 )
 
 (
-	input clock,
-	input [WORD_LENGTH - 1:0] Data_in,
-	output [WORD_LENGTH - 1:0] Data_out
+	// Input Ports
+	input clk,
+	input reset,
+	input [WORD_LENGTH-1 : 0] Data_Input,
+
+	// Output Ports
+	output [WORD_LENGTH-1 : 0] Data_Output
 );
 
-reg [WORD_LENGTH - 1:0] Data_reg;
+reg  [WORD_LENGTH-1 : 0] Data_reg;
 
-always@(posedge clock)
-	begin
-		Data_reg <= Data_in;
-	end
-	assign Data_out = Data_reg;
+always@(negedge clk or negedge reset) begin
+	if(clk == 1'b0) 
+		Data_reg <= 0;
+	else 
+		Data_reg <= Data_Input;
+end
+
+assign Data_Output = Data_reg;
+
 endmodule
