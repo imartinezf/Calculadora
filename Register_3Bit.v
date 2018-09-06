@@ -2,7 +2,7 @@
 * Name:
 *	Calculadora1.v
 * Description:
-* 	N bit Register (The one we studied in class)
+* 	3 bit Register (The one we studied in class)
 * Inputs:
 *  clk
 *  reset
@@ -16,7 +16,7 @@
 * Fecha: 
 *	06/09/2018
 *********************************************************************/
- module Register
+module Register_3Bit
 #(
 	parameter Word_Length = 6
 )
@@ -25,13 +25,13 @@
 	// Input Ports
 	input clk,
 	input reset,
-	input [Word_Length-1 : 0] Data_Input,
+	input [3 : 0] Data_Input,
 
 	// Output Ports
-	output [Word_Length-1 : 0] Data_Output
+	output [3 : 0] Data_Output
 );
 
-reg  [Word_Length-1 : 0] Data_reg;
+reg  [3 : 0] Data_reg;
 
 always@(posedge clk or negedge reset) begin
 	if(reset == 1'b0) 
@@ -41,5 +41,4 @@ always@(posedge clk or negedge reset) begin
 end
 
 assign Data_Output = Data_reg;
-
 endmodule 
